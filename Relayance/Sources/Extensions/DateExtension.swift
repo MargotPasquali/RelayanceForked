@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+
     static func dateFromString(_ isoString: String) -> Date? {
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.formatOptions = [.withFullDate]

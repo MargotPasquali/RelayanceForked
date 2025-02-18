@@ -11,57 +11,42 @@ import XCTest
 
 final class ClientTests: XCTestCase {
     var client: Client!
+    var expectedFormattedDate: String!
 
     let clientName = "John Doe"
     let clientEmail = "john.doe@example.com"
     let clientDateCreationString = "2025-01-01"
-    let expectedFormattedDate = Date.stringFromDate(Date.dateFromString(clientDateCreationString)!)
 
     override func setUp() {
         super.setUp()
         client = Client(name: clientName, email: clientEmail, creationDateString: clientDateCreationString)
+
+        if let date = Date.dateFromString(clientDateCreationString) {
+            expectedFormattedDate = Date.stringFromDate(date)
+        } else {
+            XCTFail("Date conversion failed")
+        }
     }
 
     func testInitClientSuccess() {
-        // When
+        // Given
         let fakeClient = Client(name: clientName, email: clientEmail, creationDateString: clientDateCreationString)
 
-        // Then
+        // When / Then
         XCTAssertEqual(clientEmail, fakeClient.email)
         XCTAssertEqual(clientName, fakeClient.name)
-        XCTAssertEqual(expectedFormattedDate, fakeClient.dateToStringFormatter())
 
+        let expectedDate = Date.dateFromString(clientDateCreationString)
+        let expectedFormattedDate = Date.stringFromDate(expectedDate!)
+
+        XCTAssertEqual(expectedFormattedDate, Date.stringFromDate(fakeClient.creationDate))
     }
 
-    func testIsNewClientReturnsTrue() {
-        Client(name: clientName, email: clientEmail, creationDateString: expectedFormattedDate)
-    }
+    func testDateConversionSuccess() {
+        // When
+        let convertedDate = client.creationDate
 
-    func testIsNewClientReturnsFalse() {
-        
-    }
-
-    func testCreateNewClientSuccess() {
-        
-    }
-
-    func testCreateNewClientFailure() {
-        
-    }
-
-    func testIsClientExistsReturnsTrue() {
-        
-    }
-
-    func testIsClientExistsReturnsFalse() {
-        
-    }
-
-    func testDateToStringFormatterSuccess() {
-        
-    }
-
-    func testDateToStringFormatterFailure() {
-        
+        // Then
+        XCTAssertNotNil(convertedDate)
     }
 }

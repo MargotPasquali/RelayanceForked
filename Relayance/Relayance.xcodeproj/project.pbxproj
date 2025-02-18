@@ -18,17 +18,13 @@
 		422740F92C3ED02400E7522C /* Source.json in Resources */ = {isa = PBXBuildFile; fileRef = 422740F82C3ED02400E7522C /* Source.json */; };
 		422740FB2C3ED0EE00E7522C /* DetailClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422740FA2C3ED0EE00E7522C /* DetailClientView.swift */; };
 		422740FD2C3ED18D00E7522C /* AjoutClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422740FC2C3ED18D00E7522C /* AjoutClientView.swift */; };
+		AEF389182D6380CC0060520B /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF389172D6380CC0060520B /* ClientListViewModel.swift */; };
+		AEF3891C2D6389230060520B /* ClientListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF3891B2D6389230060520B /* ClientListViewModelTests.swift */; };
+		AEF3891E2D6392FD0060520B /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF3891D2D6392FD0060520B /* ClientMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		4227407E2C3BF4DD00E7522C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 422740652C3BF4DC00E7522C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4227406C2C3BF4DC00E7522C;
-			remoteInfo = Relayance;
-		};
-		422740882C3BF4DD00E7522C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 422740652C3BF4DC00E7522C /* Project object */;
 			proxyType = 1;
@@ -44,7 +40,6 @@
 		422740772C3BF4DD00E7522C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4227407D2C3BF4DD00E7522C /* RelayanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelayanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422740812C3BF4DD00E7522C /* ClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
-		422740872C3BF4DD00E7522C /* RelayanceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelayanceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		422740EC2C3ECCF900E7522C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		422740EE2C3ECD1500E7522C /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		422740F42C3ECFCA00E7522C /* ListClientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListClientsView.swift; sourceTree = "<group>"; };
@@ -52,6 +47,9 @@
 		422740F82C3ED02400E7522C /* Source.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Source.json; sourceTree = "<group>"; };
 		422740FA2C3ED0EE00E7522C /* DetailClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailClientView.swift; sourceTree = "<group>"; };
 		422740FC2C3ED18D00E7522C /* AjoutClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutClientView.swift; sourceTree = "<group>"; };
+		AEF389172D6380CC0060520B /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
+		AEF3891B2D6389230060520B /* ClientListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModelTests.swift; sourceTree = "<group>"; };
+		AEF3891D2D6392FD0060520B /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,13 +61,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4227407A2C3BF4DD00E7522C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		422740842C3BF4DD00E7522C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -94,7 +85,6 @@
 			children = (
 				4227406D2C3BF4DC00E7522C /* Relayance.app */,
 				4227407D2C3BF4DD00E7522C /* RelayanceTests.xctest */,
-				422740872C3BF4DD00E7522C /* RelayanceUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +92,7 @@
 		4227406F2C3BF4DC00E7522C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AEF389162D6380B00060520B /* ViewModel */,
 				AE61604D2D5E354A004CD6B2 /* Extensions */,
 				AE61604C2D5E353B004CD6B2 /* Models */,
 				422740702C3BF4DC00E7522C /* RelayanceApp.swift */,
@@ -123,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				422740812C3BF4DD00E7522C /* ClientTests.swift */,
+				AEF3891B2D6389230060520B /* ClientListViewModelTests.swift */,
+				AEF3891D2D6392FD0060520B /* ClientMock.swift */,
 			);
 			path = RelayanceTests;
 			sourceTree = "<group>";
@@ -171,6 +164,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		AEF389162D6380B00060520B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AEF389172D6380CC0060520B /* ClientListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,24 +211,6 @@
 			productReference = 4227407D2C3BF4DD00E7522C /* RelayanceTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		422740862C3BF4DD00E7522C /* RelayanceUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 422740972C3BF4DD00E7522C /* Build configuration list for PBXNativeTarget "RelayanceUITests" */;
-			buildPhases = (
-				422740832C3BF4DD00E7522C /* Sources */,
-				422740842C3BF4DD00E7522C /* Frameworks */,
-				422740852C3BF4DD00E7522C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				422740892C3BF4DD00E7522C /* PBXTargetDependency */,
-			);
-			name = RelayanceUITests;
-			productName = RelayanceUITests;
-			productReference = 422740872C3BF4DD00E7522C /* RelayanceUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,10 +225,6 @@
 						CreatedOnToolsVersion = 15.4;
 					};
 					4227407C2C3BF4DD00E7522C = {
-						CreatedOnToolsVersion = 15.4;
-						TestTargetID = 4227406C2C3BF4DC00E7522C;
-					};
-					422740862C3BF4DD00E7522C = {
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = 4227406C2C3BF4DC00E7522C;
 					};
@@ -266,7 +245,6 @@
 			targets = (
 				4227406C2C3BF4DC00E7522C /* Relayance */,
 				4227407C2C3BF4DD00E7522C /* RelayanceTests */,
-				422740862C3BF4DD00E7522C /* RelayanceUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -283,13 +261,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4227407B2C3BF4DD00E7522C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		422740852C3BF4DD00E7522C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -327,6 +298,7 @@
 				422740F52C3ECFCA00E7522C /* ListClientsView.swift in Sources */,
 				422740ED2C3ECCF900E7522C /* Model.swift in Sources */,
 				422740FB2C3ED0EE00E7522C /* DetailClientView.swift in Sources */,
+				AEF389182D6380CC0060520B /* ClientListViewModel.swift in Sources */,
 				422740EF2C3ECD1500E7522C /* DateExtension.swift in Sources */,
 				422740FD2C3ED18D00E7522C /* AjoutClientView.swift in Sources */,
 				422740712C3BF4DC00E7522C /* RelayanceApp.swift in Sources */,
@@ -339,13 +311,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				422740822C3BF4DD00E7522C /* ClientTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		422740832C3BF4DD00E7522C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				AEF3891C2D6389230060520B /* ClientListViewModelTests.swift in Sources */,
+				AEF3891E2D6392FD0060520B /* ClientMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,11 +323,6 @@
 			isa = PBXTargetDependency;
 			target = 4227406C2C3BF4DC00E7522C /* Relayance */;
 			targetProxy = 4227407E2C3BF4DD00E7522C /* PBXContainerItemProxy */;
-		};
-		422740892C3BF4DD00E7522C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4227406C2C3BF4DC00E7522C /* Relayance */;
-			targetProxy = 422740882C3BF4DD00E7522C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -580,40 +542,6 @@
 			};
 			name = Release;
 		};
-		422740982C3BF4DD00E7522C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FH7WNJPHQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.amandinecousin.RelayanceUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Relayance;
-			};
-			name = Debug;
-		};
-		422740992C3BF4DD00E7522C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6FH7WNJPHQ;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.amandinecousin.RelayanceUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Relayance;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -640,15 +568,6 @@
 			buildConfigurations = (
 				422740952C3BF4DD00E7522C /* Debug */,
 				422740962C3BF4DD00E7522C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		422740972C3BF4DD00E7522C /* Build configuration list for PBXNativeTarget "RelayanceUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				422740982C3BF4DD00E7522C /* Debug */,
-				422740992C3BF4DD00E7522C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
