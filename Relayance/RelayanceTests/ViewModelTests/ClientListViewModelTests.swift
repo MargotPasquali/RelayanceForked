@@ -4,7 +4,6 @@
 //
 //  Created by Margot Pasquali on 17/02/2025.
 //
-
 import XCTest
 @testable import Relayance
 
@@ -16,6 +15,7 @@ final class ClientListViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         viewModel = ClientListViewModel()
+        viewModel.clientsList = []
         mockClient = ClientMock.fakeclient
     }
 
@@ -36,7 +36,7 @@ final class ClientListViewModelTests: XCTestCase {
         // Given
         let oldClient = Client(name: "Alice Dupont",
                                email: "alice.dupont@example.com",
-                               creationDateString: "2024-06-15T13:45:00Z")
+                               creationDateString: "2024-06-15")
 
         // When
         let isNew = viewModel.isNewCLient(client: oldClient)
@@ -45,31 +45,29 @@ final class ClientListViewModelTests: XCTestCase {
         XCTAssertFalse(isNew)
     }
 
-    func testCreateNewClientSuccess() {
+    func testCreateNewClientSuccess() throws {
         // Given
         let name = "Test"
         let email = "test@test.com"
 
         // When
-        let newClient = viewModel.createNewClient(name: name, email: email)
+        let newClient = try viewModel.createNewClient(name: name, email: email)
 
         // Then
-        XCTAssertNotNil(newClient, "The client should be created")
-        XCTAssertEqual(newClient?.name, name)
-        XCTAssertEqual(newClient?.email, email)
+        XCTAssertEqual(newClient.name, name)
+        XCTAssertEqual(newClient.email, email)
     }
 
     func testCreateNewClientFailure() {
         // Given
         let name = "Test"
         let email = "test@test.com"
-        _ = viewModel.createNewClient(name: name, email: email)
+        _ = try? viewModel.createNewClient(name: name, email: email)
 
-        // When
-        let duplicateClient = viewModel.createNewClient(name: name, email: email)
-
-        // Then
-        XCTAssertNil(duplicateClient, "The client should not be created again if it already exists")
+        // When / Then
+        XCTAssertThrowsError(try viewModel.createNewClient(name: name, email: email)) { error in
+            XCTAssertEqual(error as? ClientListViewModel.ClientListViewModelError, .clientAlreadyExists)
+        }
     }
 
     func testIsClientExistsReturnsTrue() {
@@ -81,7 +79,7 @@ final class ClientListViewModelTests: XCTestCase {
         let exists = viewModel.isClientExists(client: existingClient)
 
         // Then
-        XCTAssertTrue(exists, "The client should be recognized as existing")
+        XCTAssertTrue(exists)
     }
 
     func testIsClientExistsReturnsFalse() {
@@ -92,20 +90,18 @@ final class ClientListViewModelTests: XCTestCase {
         let exists = viewModel.isClientExists(client: nonExistingClient)
 
         // Then
-        XCTAssertFalse(exists, "The client should not be found")
+        XCTAssertFalse(exists)
     }
 
-    func testCreateNewClientFailsWhenClientAlreadyExists() {
+    func testDeleteClientRemovesClient() throws {
         // Given
-        let name = "Test User"
-        let email = "test@example.com"
-        _ = viewModel.createNewClient(name: name, email: email)
+        let clientToDelete = try viewModel.createNewClient(name: "Alice Dupont", email: "alice@example.com")
 
         // When
-        let duplicateClient = viewModel.createNewClient(name: name, email: email)
+        viewModel.deleteClient(name: clientToDelete.name, email: clientToDelete.email)
 
         // Then
-        XCTAssertNil(duplicateClient, "Duplicate client should not be created")
+        XCTAssertFalse(viewModel.isClientExists(client: clientToDelete))
     }
 
     func testDateToStringFormatterSuccess() {
@@ -117,7 +113,7 @@ final class ClientListViewModelTests: XCTestCase {
         let formattedDate = viewModel.dateToStringFormatter(for: mockClient)
 
         // Then
-        XCTAssertEqual(formattedDate, expectedFormattedDate, "The date formatting is incorrect")
+        XCTAssertEqual(formattedDate, expectedFormattedDate)
     }
 
     func testDateToStringFormatterReturnsOriginalStringWhenDateConversionFails() {
@@ -130,8 +126,7 @@ final class ClientListViewModelTests: XCTestCase {
         let formattedDate = viewModel.dateToStringFormatter(for: invalidClient)
 
         // Then
-        XCTAssertEqual(formattedDate, invalidClient.creationDateString,
-                       "Should return the original string if date conversion fails")
+        XCTAssertEqual(formattedDate, invalidClient.creationDateString)
     }
 
 }

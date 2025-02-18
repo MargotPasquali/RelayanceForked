@@ -66,7 +66,6 @@ final class ClientListViewModel: ObservableObject {
         }
     }
 
-
     func createNewClient(name: String, email: String) throws -> Client {
         guard isEmailValid(email: email) else {
             throw ClientListViewModelError.emailNotValid
@@ -83,6 +82,13 @@ final class ClientListViewModel: ObservableObject {
         saveClients()
 
         return newClient
+    }
+
+    func deleteClient(name: String, email: String) {
+        if let index = clientsList.firstIndex(where: { $0.name == name && $0.email == email }) {
+            clientsList.remove(at: index)
+            saveClients()
+        }
     }
 
     func isNewCLient(client: Client) -> Bool {

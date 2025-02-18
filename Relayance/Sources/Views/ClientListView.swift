@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CllientListView: View {
+struct ClientListView: View {
 
     // MARK: - Properties
     @StateObject var viewModel: ClientListViewModel
@@ -43,5 +43,5 @@ struct CllientListView: View {
 }
 
 #Preview {
-    CllientListView(viewModel: ClientListViewModel())
+    ClientListView(viewModel: ClientListViewModel())
 }
