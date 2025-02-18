@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-struct DetailClientView: View {
+struct ClientDetailsView: View {
+
+    // MARK: - Properties
     var client: Client
     private var viewModel: ClientListViewModel
 
+    // MARK: - Init
     init(client: Client, viewModel: ClientListViewModel) {
         self.client = client
         self.viewModel = viewModel
     }
 
+    // MARK: - View
     var body: some View {
         VStack {
             Image(systemName: "person.circle")
@@ -46,5 +50,8 @@ struct DetailClientView: View {
 }
 
 #Preview {
-    DetailClientView(client: Client(name: "Tata", email: "tata@email", creationDateString: "20:32 Wed, 30 Oct 2019"), viewModel: ClientListViewModel())
+    ClientDetailsView(client: Client(name: "Tata",
+                                    email: "tata@email",
+                                    creationDateString: "20:32 Wed, 30 Oct 2019"),
+                     viewModel: ClientListViewModel())
 }

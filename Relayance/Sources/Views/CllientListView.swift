@@ -7,16 +7,18 @@
 
 import SwiftUI
 
-struct ListClientsView: View {
-    
+struct CllientListView: View {
+
+    // MARK: - Properties
     @StateObject var viewModel: ClientListViewModel
     @State private var showModal: Bool = false
 
+    // MARK: - View
     var body: some View {
         NavigationStack {
             List(viewModel.clientsList, id: \.self) { client in
                 NavigationLink {
-                    DetailClientView(client: client, viewModel: ClientListViewModel())
+                    ClientDetailsView(client: client, viewModel: viewModel)
                 } label: {
                     Text(client.name)
                         .font(.title3)
@@ -33,7 +35,7 @@ struct ListClientsView: View {
                 }
             }
             .sheet(isPresented: $showModal, content: {
-                AjoutClientView(dismissModal: $showModal)
+                AddClientView(viewModel: viewModel, dismissModal: $showModal)
             })
         }
     }
@@ -41,5 +43,5 @@ struct ListClientsView: View {
 }
 
 #Preview {
-    ListClientsView(viewModel: ClientListViewModel())
+    CllientListView(viewModel: ClientListViewModel())
 }
