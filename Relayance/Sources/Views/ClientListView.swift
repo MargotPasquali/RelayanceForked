@@ -10,10 +10,12 @@ import SwiftUI
 struct ClientListView: View {
 
     // MARK: - Properties
+
     @StateObject var viewModel: ClientListViewModel
     @State private var showModal: Bool = false
 
     // MARK: - View
+
     var body: some View {
         NavigationStack {
             List(viewModel.clientsList, id: \.self) { client in

@@ -9,6 +9,7 @@ import SwiftUI
 struct AddClientView: View {
 
     // MARK: - Properties
+
     var viewModel: ClientListViewModel
     @Binding var dismissModal: Bool
     @State var nom: String = ""
@@ -19,6 +20,7 @@ struct AddClientView: View {
     @State private var successMessage = ""
 
     // MARK: - View
+
     var body: some View {
         VStack {
             Text("Ajouter un nouveau client")

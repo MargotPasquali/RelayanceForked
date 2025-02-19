@@ -8,12 +8,14 @@
 import Foundation
 
 public struct Client: Codable, Hashable {
+
+    // MARK: - Properties
+
     public var name: String
     public var email: String
     public var creationDateString: String
     public var creationDate: Date {
         let date = Date.dateFromString(creationDateString) ?? Date.now
-        print("🔍 Conversion Debug : \(creationDateString) → \(date)")
         return date
     }
 
@@ -23,7 +25,7 @@ public struct Client: Codable, Hashable {
         case creationDateString = "date_creation"
     }
 
-    /// Constructeur
+    // MARK: - Init
     public init(name: String, email: String, creationDateString: String) {
         self.name = name
         self.email = email

@@ -9,6 +9,7 @@ import SwiftUI
 struct ClientDetailsView: View {
 
     // MARK: - Properties
+
     var client: Client
     private var viewModel: ClientListViewModel
     @Environment(\.presentationMode) var presentationMode
@@ -16,12 +17,14 @@ struct ClientDetailsView: View {
     @State private var showConfirmation = false
 
     // MARK: - Init
+
     init(client: Client, viewModel: ClientListViewModel) {
         self.client = client
         self.viewModel = viewModel
     }
 
     // MARK: - View
+
     var body: some View {
         VStack {
             Image(systemName: "person.circle")
