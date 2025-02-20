@@ -23,6 +23,7 @@
 		AEF3891E2D6392FD0060520B /* ClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF3891D2D6392FD0060520B /* ClientMock.swift */; };
 		AEF8FCC02D66644B00A95F0A /* ClientCreationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF8FCBF2D66644B00A95F0A /* ClientCreationTests.swift */; };
 		AEF8FCC22D66648A00A95F0A /* ClientDeletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF8FCC12D66648A00A95F0A /* ClientDeletionTests.swift */; };
+		ED3B19602D67690700E69670 /* ClientService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED3B195F2D67690400E69670 /* ClientService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		AEF3891D2D6392FD0060520B /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
 		AEF8FCBF2D66644B00A95F0A /* ClientCreationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientCreationTests.swift; sourceTree = "<group>"; };
 		AEF8FCC12D66648A00A95F0A /* ClientDeletionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDeletionTests.swift; sourceTree = "<group>"; };
+		ED3B195F2D67690400E69670 /* ClientService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,7 @@
 				AE61604D2D5E354A004CD6B2 /* Extensions */,
 				AE61604C2D5E353B004CD6B2 /* Models */,
 				422740702C3BF4DC00E7522C /* RelayanceApp.swift */,
-				AE61604E2D5E3558004CD6B2 /* Service */,
+				AE61604E2D5E3558004CD6B2 /* Services */,
 				AEF389162D6380B00060520B /* ViewModel */,
 				AE61604F2D5E356A004CD6B2 /* Views */,
 			);
@@ -166,13 +168,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		AE61604E2D5E3558004CD6B2 /* Service */ = {
+		AE61604E2D5E3558004CD6B2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ED3B195F2D67690400E69670 /* ClientService.swift */,
 				422740F62C3ECFD600E7522C /* ModelData.swift */,
 				422740F82C3ED02400E7522C /* Source.json */,
 			);
-			path = Service;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		AE61604F2D5E356A004CD6B2 /* Views */ = {
@@ -327,6 +330,7 @@
 			files = (
 				422740F52C3ECFCA00E7522C /* ClientListView.swift in Sources */,
 				422740ED2C3ECCF900E7522C /* Client.swift in Sources */,
+				ED3B19602D67690700E69670 /* ClientService.swift in Sources */,
 				422740FB2C3ED0EE00E7522C /* ClientDetailsView.swift in Sources */,
 				AEF389182D6380CC0060520B /* ClientListViewModel.swift in Sources */,
 				422740EF2C3ECD1500E7522C /* DateExtension.swift in Sources */,

@@ -5,20 +5,31 @@
 //  Created by Margot Pasquali on 17/02/2025.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import Relayance
 
-final class ClientListViewModelTests: XCTestCase {
+extension Tag {
+
+    @Tag
+    static var viewModel: Self
+
+    @Tag
+    static var client: Self
+}
+
+@Suite("Client list viewmodel", .tags(.viewModel))
+struct ClientListViewModelTests {
 
     var viewModel: ClientListViewModel!
 
-    override func setUp() {
-        super.setUp()
+    init() {
         viewModel = ClientListViewModel()
         viewModel.clientsList = []
     }
 
-    func testInitLoadsClientsFromStorage() {
+    @Test(.tags(.viewModel, .client))
+    func initLoadsClientsFromStorage() {
         // Given
         let testClient = Client(name: "Test User", email: "test@example.com", creationDateString: "2024-06-15")
         let viewModel = ClientListViewModel()
@@ -31,52 +42,44 @@ final class ClientListViewModelTests: XCTestCase {
         let loadedClients = viewModel.clientsList
 
         // Then
-        XCTAssertFalse(loadedClients.isEmpty, "The client list should not be empty after initialization")
+        #expect(!loadedClients.isEmpty, "The client list should not be empty after initialization")
     }
 
-    func testSaveClientsWritesToFile() throws {
+    @Test(.tags(.client))
+    func saveClientsWritesToFile() throws {
         // Given
-        try viewModel.createNewClient(name: "Test User",
-                                      email: "test@example.com")
+        _ = try viewModel.createNewClient(name: "Test User", email: "test@example.com")
         let fileURL = viewModel.getFilePath()
 
         // When
         viewModel.saveClients()
 
         // Then
-        XCTAssertTrue(FileManager.default.fileExists(atPath: fileURL.path))
+        #expect(FileManager.default.fileExists(atPath: fileURL.path))
 
         let data = try Data(contentsOf: fileURL)
-        XCTAssertFalse(data.isEmpty, "The clients.json file should not be empty after saving")
+        #expect(!data.isEmpty, "The clients.json file should not be empty after saving")
     }
 
-    func testIsNewClientReturnsTrue() {
+    @Test("Test is new client",
+        arguments: [
+            ("Test User", "test@example.com", Date.stringFromDate(Date.now), true),
+            ("Alice Dupont", "alice.dupont@example.com", "2024-06-15", false)
+        ]
+    )
+    func shouldValidateIfNewClient(name: String, email: String, creationDateString: String, returnValue: Bool) {
         // Given
-        let today = Date.now
-        let todayString = Date.stringFromDate(today) ?? ""
-        let client = Client(name: "Test User", email: "test@example.com", creationDateString: todayString)
+        let client = Client(name: "", email: "", creationDateString: creationDateString)
 
         // When
         let isNew = viewModel.isNewCLient(client: client)
 
         // Then
-        XCTAssertTrue(isNew)
+        #expect(returnValue == isNew)
     }
 
-    func testIsNewClientReturnsFalse() {
-        // Given
-        let oldClient = Client(name: "Alice Dupont",
-                               email: "alice.dupont@example.com",
-                               creationDateString: "2024-06-15")
-
-        // When
-        let isNew = viewModel.isNewCLient(client: oldClient)
-
-        // Then
-        XCTAssertFalse(isNew)
-    }
-
-    func testIsClientExistsReturnsTrue() {
+    @Test
+    func isClientExistsReturnsTrue() {
         // Given
         let existingClient = Client(name: "Bob Martin",
                                     email: "bob.martin@example.com",
@@ -87,10 +90,11 @@ final class ClientListViewModelTests: XCTestCase {
         let exists = viewModel.isClientExists(client: existingClient)
 
         // Then
-        XCTAssertTrue(exists)
+        #expect(exists)
     }
 
-    func testIsClientExistsReturnsFalse() {
+    @Test
+    func isClientExistsReturnsFalse() {
         // Given
         let nonExistingClient = Client(name: "Bob", email: "bob@example.com", creationDateString: "2024-01-01")
 
@@ -98,6 +102,20 @@ final class ClientListViewModelTests: XCTestCase {
         let exists = viewModel.isClientExists(client: nonExistingClient)
 
         // Then
-        XCTAssertFalse(exists)
+        #expect(!exists)
+    }
+
+    @Test
+    func shouldReturnDateToString() {
+        // Given
+        let today = Date.now
+        let todayString = Date.stringFromDate(today)
+        let client = Client(name: "Test User", email: "test@example.com", creationDateString: todayString)
+
+        // When
+        let value = viewModel.dateToStringFormatter(for: client)
+
+        // Then
+        #expect(todayString == value)
     }
 }

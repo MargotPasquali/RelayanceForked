@@ -10,8 +10,10 @@ struct ClientDetailsView: View {
 
     // MARK: - Properties
 
-    var client: Client
-    private var viewModel: ClientListViewModel
+    // TODO: Extract into its own VM
+    let client: Client
+    private let viewModel: ClientListViewModel
+
     @Environment(\.presentationMode) var presentationMode
     @State private var showSuccess = false
     @State private var showConfirmation = false

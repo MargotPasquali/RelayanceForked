@@ -19,14 +19,16 @@ final class ClientListViewModel: ObservableObject {
         var localizedDescription: String {
             switch self {
             case .clientAlreadyExists:
-                return "Le client existe déjà."
+                "Le client existe déjà."
             case .emailNotValid:
-                return "L'email n'est pas valide."
+                "L'email n'est pas valide."
             case .unableToCreateClient:
-                return "Impossible de créer le client."
+                "Impossible de créer le client."
             }
         }
     }
+
+    private let clientService: ClientServiceProtocol
 
     // MARK: - Properties
 
@@ -34,36 +36,20 @@ final class ClientListViewModel: ObservableObject {
 
     // MARK: - Init
 
-    init() {
+    init(clientService: ClientServiceProtocol = JSONClientService()) {
+        self.clientService = clientService
+
         loadClients()
     }
 
     // MARK: - Fonctions
 
-    func getFilePath() -> URL {
-        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-            .appendingPathComponent("clients.json")
-    }
-
     func saveClients() {
-        if let data = try? JSONEncoder().encode(clientsList) {
-            try? data.write(to: getFilePath())
-        }
+        clientService.save(clients: clientsList)
     }
 
     func loadClients() {
-        let fileURL = getFilePath()
-
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            // If the file exists, load the saved clients
-            if let data = try? Data(contentsOf: fileURL),
-               let savedClients = try? JSONDecoder().decode([Client].self, from: data) {
-                clientsList = savedClients
-            }
-        } else {
-            // If no JSON file is found, load the default clients
-            clientsList = ModelData.chargement("Source.json")
-        }
+        clientsList = clientService.fetchClients()
     }
 
     func createNewClient(name: String, email: String) throws -> Client {
@@ -71,7 +57,7 @@ final class ClientListViewModel: ObservableObject {
             throw ClientListViewModelError.emailNotValid
         }
 
-        let currentDateString = Date.stringFromDate(Date.now) ?? ""
+        let currentDateString = Date.stringFromDate(Date.now)
         let newClient = Client(name: name, email: email, creationDateString: currentDateString)
 
         guard !isClientExists(client: newClient) else {
@@ -84,39 +70,42 @@ final class ClientListViewModel: ObservableObject {
         return newClient
     }
 
+    // TODO: Extract this into a service or a manager
     func deleteClient(name: String, email: String) {
         if let index = clientsList.firstIndex(where: { $0.name == name && $0.email == email }) {
             clientsList.remove(at: index)
             saveClients()
         }
+
+        loadClients()
     }
 
     func isNewCLient(client: Client) -> Bool {
         let today = Date.now
-        _ = client.creationDate
 
-        if today.getYear() != client.creationDate.getYear() ||
-            today.getMonth() != client.creationDate.getMonth() ||
-            today.getDay() != client.creationDate.getDay() {
-            return false
-        }
-        return true
+        return !(today.getYear() != client.creationDate.getYear() ||
+                today.getMonth() != client.creationDate.getMonth() ||
+                today.getDay() != client.creationDate.getDay())
     }
 
     func isClientExists(client: Client) -> Bool {
-        return clientsList.contains { $0.name == client.name && $0.email == client.email }
+        clientsList.contains { $0.name == client.name && $0.email == client.email }
     }
 
     func dateToStringFormatter(for client: Client) -> String {
         if let validDate = Date.dateFromString(client.creationDateString) {
-            return Date.stringFromDate(validDate) ?? client.creationDateString
+            Date.stringFromDate(validDate)
+        } else {
+            client.creationDateString
         }
-        return client.creationDateString
     }
 
     func isEmailValid(email: String) -> Bool {
-        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        return email.range(of: emailRegex, options: .regularExpression, range: nil, locale: nil) != nil
+        email.range(
+            of: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+            options: .regularExpression,
+            range: nil,
+            locale: nil
+        ) != nil
     }
-
 }

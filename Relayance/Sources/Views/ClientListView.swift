@@ -12,7 +12,7 @@ struct ClientListView: View {
     // MARK: - Properties
 
     @StateObject var viewModel: ClientListViewModel
-    @State private var showModal: Bool = false
+    @State private var showModal = false
 
     // MARK: - View
 
@@ -36,12 +36,11 @@ struct ClientListView: View {
                     .bold()
                 }
             }
-            .sheet(isPresented: $showModal, content: {
+            .sheet(isPresented: $showModal) {
                 AddClientView(viewModel: viewModel, dismissModal: $showModal)
-            })
+            }
         }
     }
-
 }
 
 #Preview {
