@@ -5,20 +5,22 @@
 //  Created by Margot Pasquali on 19/02/2025.
 //
 
-import XCTest
+import Foundation
+import Testing
 @testable import Relayance
 
-final class ClientCreationTests: XCTestCase {
+@Suite("ClientCreationTests")
+struct ClientCreationTests {
 
     var viewModel: ClientListViewModel!
 
-    override func setUp() {
-        super.setUp()
+    init() {
         viewModel = ClientListViewModel()
         viewModel.clientsList = []
     }
 
-    func testCreateNewClientSuccess() throws {
+    @Test
+    func createNewClientSuccess() throws {
         // Given
         let name = "Test User"
         let email = "test@example.com"
@@ -27,12 +29,13 @@ final class ClientCreationTests: XCTestCase {
         let newClient = try viewModel.createNewClient(name: name, email: email)
 
         // Then
-        XCTAssertEqual(newClient.name, name)
-        XCTAssertEqual(newClient.email, email)
-        XCTAssertTrue(viewModel.isClientExists(client: newClient))
+        #expect(newClient.name == name)
+        #expect(newClient.email == email)
+        #expect(viewModel.isClientExists(client: newClient))
     }
 
-    func testCreateNewClientUpdatesClientsList() throws {
+    @Test
+    func createNewClientUpdatesClientsList() throws {
         // Given
         let initialCount = viewModel.clientsList.count
         let name = "Test User"
@@ -42,29 +45,31 @@ final class ClientCreationTests: XCTestCase {
         let newClient = try viewModel.createNewClient(name: name, email: email)
 
         // Then
-        XCTAssertEqual(viewModel.clientsList.count, initialCount + 1)
-        XCTAssertTrue(viewModel.clientsList.contains { $0.name == newClient.name && $0.email == newClient.email })
+        #expect(viewModel.clientsList.count == initialCount + 1)
+        #expect(viewModel.clientsList.contains { $0.name == newClient.name && $0.email == newClient.email })
     }
 
-    func testCreateNewClientFailsWithInvalidEmail() {
+    @Test
+    func createNewClientFailsWithInvalidEmail() async throws {
         // Given
         let invalidEmail = "invalid-email"
 
         // When / Then
-        XCTAssertThrowsError(try viewModel.createNewClient(name: "Invalid User", email: invalidEmail)) { error in
-            XCTAssertEqual(error as? ClientListViewModel.ClientListViewModelError, .emailNotValid)
+        #expect(throws: ClientListViewModel.ClientListViewModelError.emailNotValid) {
+            try viewModel.createNewClient(name: "Invalid User", email: invalidEmail)
         }
     }
 
-    func testCreateNewClientFailsIfAlreadyExists() throws {
+    @Test
+    func createNewClientFailsIfAlreadyExists() async throws {
         // Given
         let name = "Duplicate User"
         let email = "duplicate@example.com"
         _ = try viewModel.createNewClient(name: name, email: email)
 
         // When / Then
-        XCTAssertThrowsError(try viewModel.createNewClient(name: name, email: email)) { error in
-            XCTAssertEqual(error as? ClientListViewModel.ClientListViewModelError, .clientAlreadyExists)
+        #expect(throws: ClientListViewModel.ClientListViewModelError.clientAlreadyExists) {
+            try viewModel.createNewClient(name: name, email: email)
         }
     }
 }

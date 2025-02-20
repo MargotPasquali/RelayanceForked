@@ -6,10 +6,11 @@
 //
 
 import Foundation
-import XCTest
+import Testing
 @testable import Relayance
 
-final class ClientTests: XCTestCase {
+@Suite("ClientTests")
+struct ClientTests {
     var client: Client!
     var expectedFormattedDate: String!
 
@@ -17,36 +18,35 @@ final class ClientTests: XCTestCase {
     let clientEmail = "john.doe@example.com"
     let clientDateCreationString = "2025-01-01"
 
-    override func setUp() {
-        super.setUp()
+    init() {
         client = Client(name: clientName, email: clientEmail, creationDateString: clientDateCreationString)
 
         if let date = Date.dateFromString(clientDateCreationString) {
             expectedFormattedDate = Date.stringFromDate(date)
-        } else {
-            XCTFail("Date conversion failed")
         }
     }
 
-    func testInitClientSuccess() {
+    @Test
+    func initClientSuccess() {
         // Given
         let fakeClient = Client(name: clientName, email: clientEmail, creationDateString: clientDateCreationString)
 
         // When / Then
-        XCTAssertEqual(clientEmail, fakeClient.email)
-        XCTAssertEqual(clientName, fakeClient.name)
+        #expect(clientEmail == fakeClient.email)
+        #expect(clientName == fakeClient.name)
 
         let expectedDate = Date.dateFromString(clientDateCreationString)
         let expectedFormattedDate = Date.stringFromDate(expectedDate!)
 
-        XCTAssertEqual(expectedFormattedDate, Date.stringFromDate(fakeClient.creationDate))
+        #expect(expectedFormattedDate == Date.stringFromDate(fakeClient.creationDate))
     }
 
-    func testDateConversionSuccess() {
+    @Test
+    func dateConversionSuccess() {
         // When
         let convertedDate = client.creationDate
 
         // Then
-        XCTAssertNotNil(convertedDate)
+        #expect(convertedDate != nil)
     }
 }

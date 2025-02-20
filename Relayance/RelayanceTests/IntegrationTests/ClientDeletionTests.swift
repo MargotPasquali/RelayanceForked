@@ -4,20 +4,21 @@
 //
 //  Created by Margot Pasquali on 19/02/2025.
 //
-import XCTest
+import Foundation
+import Testing
 @testable import Relayance
 
-final class ClientDeletionTests: XCTestCase {
-
+@Suite("ClientDeletionTests")
+struct ClientDeletionTests {
     var viewModel: ClientListViewModel!
 
-    override func setUp() {
-        super.setUp()
+    init() {
         viewModel = ClientListViewModel()
         viewModel.clientsList = []
     }
 
-    func testDeleteClientSuccess() throws {
+    @Test
+    func deleteClientSuccess() throws {
         // Given
         let client = try viewModel.createNewClient(name: "John Doe", email: "john.doe@example.com")
 
@@ -25,10 +26,11 @@ final class ClientDeletionTests: XCTestCase {
         viewModel.deleteClient(name: client.name, email: client.email)
 
         // Then
-        XCTAssertFalse(viewModel.isClientExists(client: client))
+        #expect(!viewModel.isClientExists(client: client))
     }
 
-    func testDeleteClientFailsIfNotFound() {
+    @Test
+    func deleteClientFailsIfNotFound() {
         // Given
         let initialCount = viewModel.clientsList.count
 
@@ -36,10 +38,11 @@ final class ClientDeletionTests: XCTestCase {
         viewModel.deleteClient(name: "Nonexistent", email: "no@email.com")
 
         // Then
-        XCTAssertEqual(viewModel.clientsList.count, initialCount)
+        #expect(viewModel.clientsList.count == initialCount)
     }
 
-    func testDeleteClientFailsIfListIsEmpty() {
+    @Test
+    func deleteClientFailsIfListIsEmpty() {
         // Given
         viewModel.clientsList = []
 
@@ -47,6 +50,6 @@ final class ClientDeletionTests: XCTestCase {
         viewModel.deleteClient(name: "Random", email: "random@email.com")
 
         // Then
-        XCTAssertTrue(viewModel.clientsList.isEmpty)
+        #expect(viewModel.clientsList.isEmpty)
     }
 }

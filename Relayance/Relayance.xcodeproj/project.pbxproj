@@ -49,6 +49,7 @@
 		422740F82C3ED02400E7522C /* Source.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Source.json; sourceTree = "<group>"; };
 		422740FA2C3ED0EE00E7522C /* ClientDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientDetailsView.swift; sourceTree = "<group>"; };
 		422740FC2C3ED18D00E7522C /* AddClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClientView.swift; sourceTree = "<group>"; };
+		AEA6AA382D6736A5000D59BF /* Relayance.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Relayance.xctestplan; sourceTree = "<group>"; };
 		AEF389172D6380CC0060520B /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
 		AEF3891B2D6389230060520B /* ClientListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModelTests.swift; sourceTree = "<group>"; };
 		AEF3891D2D6392FD0060520B /* ClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientMock.swift; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		422740642C3BF4DC00E7522C = {
 			isa = PBXGroup;
 			children = (
+				AEA6AA382D6736A5000D59BF /* Relayance.xctestplan */,
 				4227406F2C3BF4DC00E7522C /* Sources */,
 				AE61604B2D5E3467004CD6B2 /* Resources */,
 				4227406E2C3BF4DC00E7522C /* Products */,

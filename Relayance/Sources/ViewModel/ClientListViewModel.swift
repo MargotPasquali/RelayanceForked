@@ -71,7 +71,7 @@ final class ClientListViewModel: ObservableObject {
             throw ClientListViewModelError.emailNotValid
         }
 
-        let currentDateString = Date.stringFromDate(Date.now) ?? ""
+        let currentDateString = Date.stringFromDate(Date.now)
         let newClient = Client(name: name, email: email, creationDateString: currentDateString)
 
         guard !isClientExists(client: newClient) else {
